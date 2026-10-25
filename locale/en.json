@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Screenshot to composer",
+    "description": "A scissors button in the composer tool row: click it, drag a region anywhere on screen, and the picture lands in the composer as an ordinary image attachment. A customizable global shortcut (Alt+A by default) captures from any window, so the draft is already waiting when you come back to DSH."
+  }
+}

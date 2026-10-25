@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/33919037/README.md)
 # dsh-lit-shot
 
 在 DSH 打字框里加一个截图键 —— 像微信聊天窗里那个：点一下、框一块、图就进输入框。
@@ -15,7 +14,7 @@
 要求：**Windows 10/11**、DSH `0.2.0-rc.2` 及以上（在 `0.2.1-rc.2` 上验证过）、系统自带的 Windows PowerShell 5.1（不需要 pwsh）。
 
 ```powershell
-dsh plugin add github:OWNER/dsh-lit-shot
+dsh plugin add github:QiaoSchoco/dsh-lit-shot
 ```
 
 也可以在 DSH 插件页里用「从路径安装」指向本仓库目录。装好后**重启 DSH**（宿主半是常驻进程，只在启动时加载）。
@@ -48,7 +47,7 @@ dsh plugin add github:OWNER/dsh-lit-shot
 A screenshot button for the DSH composer on Windows: click the scissors, drag a rectangle over the frozen screen, and the picture is handed to the shipped draft-attachment channel so it is sent as a normal image. A resident PowerShell agent owns the global hotkey (`Alt+A` by default, editable from the right-click panel) and a full-screen overlay. Requires DSH `>=0.2.0-rc.2` on Windows 10/11.
 
 ```powershell
-dsh plugin add github:OWNER/dsh-lit-shot
+dsh plugin add github:QiaoSchoco/dsh-lit-shot
 ```
 
 ## 许可证

@@ -1,0 +1,57 @@
+{
+  "name": "dsh-lit-shot",
+  "version": "1.0.0",
+  "description": "Screenshot button for the DSH composer: drag a region on screen and the picture lands in the draft as a normal image attachment. Ships a global hotkey and a customisable shortcut. Windows only.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QiaoSchoco/dsh-lit-shot.git"
+  },
+  "homepage": "https://github.com/QiaoSchoco/dsh-lit-shot#readme",
+  "bugs": {
+    "url": "https://github.com/QiaoSchoco/dsh-lit-shot/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "screenshot",
+    "composer",
+    "windows"
+  ],
+  "engines": {
+    "dsh": ">=0.2.0-rc.2 <0.3.0"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "scripts/agent.ps1",
+    "locale/*.json",
+    "icon.svg",
+    "icon.png",
+    "README.md",
+    "LICENSE",
+    "screenshots.json",
+    "screenshots/*.png"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  }
+}
