@@ -208,6 +208,38 @@ window.__ModuleLoader__.load({
       return null;
     }
 
+    /** Put the caret back into the composer so the user can type straight away. */
+    function focusComposer() {
+      try {
+        const editor = document.querySelector('[contenteditable="true"][data-lexical-editor="true"]')
+          ?? document.querySelector('[contenteditable="true"]');
+        if (editor === null || editor === undefined) return;
+        editor.focus();
+        const selection = typeof window.getSelection === "function" ? window.getSelection() : null;
+        if (selection === null) return;
+        const range = document.createRange();
+        range.selectNodeContents(editor);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } catch {
+        /* focus is a nicety, never a failure */
+      }
+    }
+
+    /** The composer re-renders once the draft lands, so focus after that paint. */
+    function focusComposerSoon() {
+      try {
+        if (typeof requestAnimationFrame !== "function") {
+          setTimeout(focusComposer, 30);
+          return;
+        }
+        requestAnimationFrame(() => requestAnimationFrame(focusComposer));
+      } catch {
+        /* ignore */
+      }
+    }
+
     /** Decode a data URL into a File the composer accepts. */
     function dataUrlToFile(dataUrl, fileName, mediaType) {
       const comma = dataUrl.indexOf(",");
@@ -363,6 +395,7 @@ window.__ModuleLoader__.load({
         const failure = insertDraft(file, sessionRef.current, inputActions);
         if (failure === null) {
           flash("ok", tr("status.inserted"));
+          focusComposerSoon();
           return;
         }
         if (failure === "conversation" || failure === "inputActions") {

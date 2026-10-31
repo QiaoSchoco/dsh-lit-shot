@@ -104,6 +104,7 @@ export function apply(ctx) {
   let hotkeyOk = false;
   let hotkeyError = '';
   let lastError = '';
+  let lastFocus = { ok: false, hwnd: 0, at: 0 };
   let attempts = 0;
   let restartTimer = null;
   let stdoutBuffer = '';
@@ -184,6 +185,9 @@ export function apply(ctx) {
       case 'cancel':
         settleWaiter(undefined, { cancelled: true });
         break;
+      case 'focus':
+        lastFocus = { ok: event.ok === true, hwnd: Number(event.hwnd) || 0, at: Date.now() };
+        break;
       case 'error':
         lastError = typeof event.error === 'string' ? event.error : 'unknown error';
         break;
@@ -210,6 +214,7 @@ export function apply(ctx) {
     const proc = spawn(POWERSHELL, [
       '-NoProfile', '-STA', '-ExecutionPolicy', 'Bypass',
       '-File', AGENT_PATH, '-Hotkey', hotkey, '-MaxEdge', String(MAX_EDGE),
+      '-DshPid', String(process.pid),
     ], { windowsHide: true, stdio: ['pipe', 'pipe', 'pipe'] });
     child = proc;
     ready = false;
@@ -428,6 +433,7 @@ export function apply(ctx) {
       error: hotkeyError,
       agent: ready,
       defaultHotkey: DEFAULT_HOTKEY,
+      focus: lastFocus,
     });
   }
 
